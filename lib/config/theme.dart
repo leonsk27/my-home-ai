@@ -72,7 +72,7 @@ class ThemeManager {
   ThemeManager._internal();
   final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.system);
   void toggleTheme(bool isDark) {
-    print("CAMBIANDO TEMA A: ${isDark ? 'OSCURO' : 'CLARO'}");
+    // print("CAMBIANDO TEMA A: ${isDark ? 'OSCURO' : 'CLARO'}");
     themeNotifier.value = isDark ? ThemeMode.dark : ThemeMode.light;
   }
 }

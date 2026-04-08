@@ -11,7 +11,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   String _username = "Cargando...";
-  String _email = "usuario@email.com"; // Puedes guardar esto también en login
+  final String _email = "usuario@email.com"; // Puedes guardar esto también en login
   bool _isDarkMode = false;
 
   @override

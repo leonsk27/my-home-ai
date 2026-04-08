@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
           indicatorColor: Theme.of(context).primaryColor.withOpacity(0.1),
-          labelTextStyle: MaterialStateProperty.all(
+          labelTextStyle: WidgetStateProperty.all(
              const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
           ),
         ),

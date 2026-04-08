@@ -20,13 +20,13 @@ class AuthService {
         final data = jsonDecode(response.body);
         await _storage.saveToken(data["access"]);
         await _storage.saveUsername(data["username"]);
-        print("LOGIN SUCCESS: $data");
+        //print("LOGIN SUCCESS: $data");
 
         return true;
       }
       throw Exception("Credenciales incorrectas");
     } catch (err) {
-      print("ERROR LOGIN: $err");
+      //print("ERROR LOGIN: $err");
       rethrow;
     }
   }
@@ -52,7 +52,7 @@ class AuthService {
         throw Exception(errorData.toString());
       }
     } catch (err) {
-      print("ERROR REGISTER: $err");
+      //print("ERROR REGISTER: $err");
       rethrow;
     }
   }
