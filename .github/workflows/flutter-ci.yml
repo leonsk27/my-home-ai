@@ -1,12 +1,11 @@
-name: Flutter CI
+name: Flutter CI/CD
 
 on:
   push:
-    branches: [ "main", "develop" ]
-  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  ci:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,13 +17,7 @@ jobs:
         with:
           flutter-version: 'stable'
 
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.pub-cache
-          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
-
-      - name: Install deps
+      - name: Install dependencies
         run: flutter pub get
 
       - name: Analyze
@@ -32,5 +25,20 @@ jobs:
 
       - name: Test
         run: flutter test
-      - name: Build APK
-        run: flutter build apk --release
+
+      # 🔐 reconstruir keystore desde BASE64
+      - name: Decode keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/my-release-key.jks
+
+      # 📄 crear key.properties dinámicamente
+      - name: Create key.properties
+        run: |
+          echo "storePassword=${{ secrets.STORE_PASSWORD }}" > android/key.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
+          echo "storeFile=../app/my-release-key.jks" >> android/key.properties
+
+      # 📦 build firmado
+      - name: Build AAB
+        run: flutter build appbundle --release
