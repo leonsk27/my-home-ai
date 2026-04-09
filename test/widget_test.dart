@@ -10,6 +10,7 @@ import 'package:my_home/main.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 void main() {
   testWidgets('Debe iniciar en login cuando no está autenticado', (WidgetTester tester) async {
+    //change
     await tester.pumpWidget(
       const MyApp(initialRoute: "/login"),
     );
@@ -19,6 +20,7 @@ void main() {
     expect(find.byType(MaterialApp), findsOneWidget);
   });
     testWidgets('Debe iniciar en home cuando está autenticado', (tester) async {
+      //change
     await mockNetworkImagesFor(() async {
       await tester.pumpWidget(
         const MyApp(initialRoute: "/home"),
