@@ -38,7 +38,16 @@ jobs:
           echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
           echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
           echo "storeFile=../app/my-release-key.jks" >> android/key.properties
-
+      # Build APK for test
+      - name: Build APK (debug)
+        run:  flutter build apk --debug
+      # Upload APK
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: build/app/outputs/flutter-apk/app-debug.apk
       # 📦 build firmado
       - name: Build AAB
         run: flutter build appbundle --release
+      # build APK debug
